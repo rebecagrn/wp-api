@@ -4,7 +4,7 @@ function api_usuario_post($request) {
 
   $email = sanitize_email($request['email']);
   $nome = sanitize_text_field($request['nome']);
-  $senha = sanitize_text_field($request['senha']);
+  $senha = $request['senha'];
   $rua = sanitize_text_field($request['rua']);
   $bairro = sanitize_text_field($request['bairro']);
   $numero = sanitize_text_field($request['numero']);
@@ -25,6 +25,13 @@ function api_usuario_post($request) {
       'role' => 'subscriber'
     );
     wp_update_user($response);
+
+    update_user_meta($user_id, 'cep', $cep);
+    update_user_meta($user_id, 'rua', $rua);
+    update_user_meta($user_id, 'bairro', $bairro);
+    update_user_meta($user_id, 'numero', $numero);
+    update_user_meta($user_id, 'cidade', $cidade);
+    update_user_meta($user_id, 'estado', $estado);
   } else {
     $response = new WP_Error('email', 'E-mail já cadastrado.', array('status' => 403));
   }
