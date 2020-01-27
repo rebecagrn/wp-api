@@ -20,7 +20,7 @@ function api_usuario_post($request) {
 
     $response = array(
       'ID' => $user_id,
-      'display_name' => $name,
+      'display_name' => $nome,
       'first_name' => $nome,
       'role' => 'subscriber'
     );
